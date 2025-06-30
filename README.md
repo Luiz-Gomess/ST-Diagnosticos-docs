@@ -6,13 +6,13 @@ Este projeto simula um sistema para gerenciamento de exames médicos e emissão 
 
 ### Equipe
 
-Luiz Fernando 
-Lucas Kaíque
+- Luiz Fernando 
+- Lucas Kaíque
 
 ### 📌 Diagrama de Classes
 O diagrama a seguir representa os principais componentes da solução, estruturados com múltiplos padrões de projeto:
 
-*(Local para inserir o diagrama de classes)*
+*![Diagrama de Classes do Sistema de Exames](./imagens/geral.png)*
 
 ---
 
@@ -23,6 +23,8 @@ O diagrama a seguir representa os principais componentes da solução, estrutura
     * `DataLoader` define o algoritmo genérico.
     * `CSVDataLoader` implementa a leitura real dos dados.
     * Permite adicionar novos formatos no futuro (JSON, XML etc.) sem alterar o processo geral.
+    * ![Template Method](./imagens/r1.png)
+
 
 ✅ **R2 – Gerar número sequencial sem repetição**
 * **🔧 Padrão: Singleton**
@@ -32,36 +34,43 @@ O diagrama a seguir representa os principais componentes da solução, estrutura
         ```java
         int id = Id.getInstancia().gerarId();
         ```
+    * ![Singleton](./imagens/r2.png)
+     
 
 ✅ **R3 – Emitir diferentes tipos de exames**
 * **🔧 Padrão: Factory Method**
     * A classe abstrata `ExameFactory` define a criação de exames.
     * Subclasses como `HemogramaFactory`, `UltrassonografiaFactory` e `RessonanciaMagneticaFactory` encapsulam a criação específica.
     * Permite adicionar novos tipos sem modificar o código existente.
+    * ![Factory Method](./imagens/r3.png)
 
 ✅ **R4 – Gerar laudos em diferentes formatos**
 * **🔧 Padrão: Bridge**
     * `Laudo` utiliza a interface `GeradorDeLaudo`.
     * Implementações como `TextoFormatter`, `HTMLFormatter` e `PDFFormatter` definem a forma de saída.
     * Laudo e formato são desacoplados.
+    * ![Bridge](./imagens/r4.png)
 
 ✅ **R5 – Regras de validação extensíveis**
 * **🔧 Padrão: Chain of Responsibility**
     * A interface `Validador` permite encadear múltiplas regras.
     * Ex: `HemoglobinaValidacao`, `ImplantesGeraisValidacao` verificam diferentes aspectos do exame.
     * Permite adicionar/remover validações sem impactar a cadeia.
+    * ![Chain of Responsability](./imagens/r5.png)
 
 ✅ **R6 – Notificar o paciente ao emitir o laudo**
 * **🔧 Padrão: Observer**
     * A interface `Notificador` define o comportamento genérico.
     * Implementações como `WhatsAppNotificador`, `EmailNotificador`, etc.
     * `GerenciadorDeNotificacoes` gerencia os canais de notificação (observadores).
+    * ![Observer](./imagens/r6.png)
 
 ✅ **R7 – Aplicar descontos conforme regras**
 * **🔧 Padrão: Chain of Responsibility**
     * `Desconto` representa o nó da cadeia.
     * Subclasses como `ConvenioDesconto` e `IdosoDesconto` aplicam regras específicas.
     * Encadeamento permite múltiplos descontos acumulativos ou condicionais.
+    * ![Chain of Responsability](./imagens/r7.png)
 
 ✅ **R8 – Priorização de exames com fila**
 * **🔧 Implementação: `PriorityQueue` com `Enum Prioridade`**
